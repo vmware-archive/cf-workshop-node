@@ -5,9 +5,13 @@ var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
 
+var mongo = require('mongodb');
+var monk = require('monk');
+var db = monk('localhost:27017/cf-workshop-node');
+
 var routes = require('./routes/index');
 var kill = require('./routes/kill');
-//var attendees = require('./routes/attendees');
+var attendees = require('./routes/attendees');
 
 var app = express();
 
@@ -23,9 +27,14 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
 
+app.use(function(req,res,next){
+    req.db = db;
+    next();
+});
+
 app.use('/', routes);
 app.use('/kill', kill);
-//app.use('/attendees', attendees);
+app.use('/attendees', attendees);
 
 // catch 404 and forward to error handler
 app.use(function(req, res, next) {

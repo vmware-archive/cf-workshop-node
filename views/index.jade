@@ -1,0 +1,23 @@
+extends layout
+
+block content
+  div(class='row')
+    div(class='large-12 columns')
+    h3(style='color: #01786E') Demo Application Pivotal CF
+    hr
+  div(class='row')
+    div(class='large-12 columns')
+      div(class='panel')
+        h4 Environment Information
+        p The current server time is #{now}
+        p The application port is #{port}
+        p The instance ID is #{vcapApplication['instance_id']}
+        p The instance index is #{vcapApplication['instance_index']}
+        p The instance was started at #{vcapApplication['started_at']}
+        p The bound services are #{vcapServices}
+    hr
+  div(class='row')
+    div(class='large-12 columns')
+      a(href='javascript:window.location.reload();', class='medium button') Refresh
+      &nbsp;&nbsp;
+      a(href='kill' class='medium alert button') Kill 

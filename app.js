@@ -7,7 +7,9 @@ var bodyParser = require('body-parser');
 
 var mongo = require('mongodb');
 var monk = require('monk');
-var db = monk('localhost:27017/cf-workshop-node');
+
+var vcap_services = JSON.parse(process.env.VCAP_SERVICES || '{}');
+var db = monk(vcap_services != undefined && vcap_services.mongolab != undefined ? vcap_services.mongolab[0].credentials.uri : 'localhost:27017/cf-workshop-node');
 
 var routes = require('./routes/index');
 var kill = require('./routes/kill');

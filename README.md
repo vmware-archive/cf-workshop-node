@@ -42,7 +42,7 @@ There is a file called `data.json` that can be used as sample data.  Import this
 
 ###Bundling node modules
 
-The Node modules are bundled within the application itself, as a result of running `npm install` on the application.  This ensures the right versions of the modules, but can also lead to a very large package to push (~7MB).  The Node.js buildpack supports bundling as part of staging, so if you want to reduce the package size that is being pushed, delete the `node_modules` directory before pushing.  The Node.js buildpack will then automatically run `npm install` as part of staging.
+The Node modules can be bundled within the application itself, as a result of running `npm install` on the application.  This ensures the right versions of the modules, but can also lead to a very large package to push (~7MB).  The Node.js buildpack supports bundling as part of staging, so if you want to reduce the package size that is being pushed, delete the `node_modules` directory before pushing.  The Node.js buildpack will then automatically run `npm install` as part of staging.
 
 ###Pushing / Running
 

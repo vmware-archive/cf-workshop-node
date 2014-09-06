@@ -1,20 +1,19 @@
 var express = require('express');
 var router = express.Router();
 
+var mongoose = require('mongoose');
+var attendee = mongoose.model('Attendee');
+
 router.get('/list', function(req, res) {
-	var db = req.db;
-	var attendeeCollection = db.get('attendees');
-	attendeeCollection.find({}, {}, function(e, attendees) {
+	attendee.find(function(e, attendees, count) {
 		res.render('attendees', {"attendees": attendees});
 	});
 });
 
 router.get('/:attendee_id/sessions', function(req, res) {
-	var db = req.db;
-	var attendeeCollection = db.get('attendees');
-	attendeeCollection.findOne({_id: req.params.attendee_id}, {}, function(e, attendee) {
+	attendee.findOne({_id: req.params.attendee_id}, {}, function(e, attendee) {
 		res.render('sessions', {"attendee": attendee});
 	});
-})
+});
 
 module.exports = router;

@@ -1,15 +1,10 @@
+require('./mongo');
 var express = require('express');
 var path = require('path');
 var favicon = require('serve-favicon');
 var logger = require('morgan');
 var cookieParser = require('cookie-parser');
 var bodyParser = require('body-parser');
-
-var mongo = require('mongodb');
-var monk = require('monk');
-
-var vcap_services = JSON.parse(process.env.VCAP_SERVICES || '{}');
-var db = monk(vcap_services != undefined && vcap_services.mongolab != undefined ? vcap_services.mongolab[0].credentials.uri : 'localhost:27017/cf-workshop-node');
 
 var routes = require('./routes/index');
 var kill = require('./routes/kill');
@@ -28,11 +23,6 @@ app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, 'public')));
-
-app.use(function(req,res,next){
-    req.db = db;
-    next();
-});
 
 app.use('/', routes);
 app.use('/kill', kill);

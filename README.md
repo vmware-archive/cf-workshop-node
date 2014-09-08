@@ -28,7 +28,7 @@ By default, the application expects a MongoDB service from Mongo Lab (the PWS Mo
 service), and the application will use the first one that it finds.  If you use a 
 different service, find this line in app.js:
 
-	var db = monk(vcap_services != undefined && vcap_services.mongolab != undefined ? vcap_services.mongolab[0].credentials.uri : 'localhost:27017/cf-workshop-node');
+	var uri = vcap_services != undefined && vcap_services.mongolab != undefined ? vcap_services.mongolab[0].credentials.uri : 'localhost:27017/cf-workshop-node';
 
 and change all occurences of `vcap_services.mongolab` to `vcap_services.<service-name>`.  The service name can be tricky; it's not the name of the service that you create, it's 
 the provider name of the service broker.
